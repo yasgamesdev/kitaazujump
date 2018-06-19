@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 
     public Kitaazuchan kitaazuchan;
     public Rope rope;
+    public CenterText centerText;
+
+    AudioSource audioSource;
 
     float buttonDownTime = 0.0f;
 
@@ -15,13 +18,22 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        state = GameState.Play;
+        audioSource = GetComponent<AudioSource>();
+
+        //state = GameState.Play;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(state == GameState.Play && Input.GetMouseButton(0) && kitaazuchan.IsGround())
+        if(state == GameState.Start && Input.GetMouseButtonUp(0))
+        {
+            rope.isRotate = true;
+            centerText.SetText("");
+
+            state = GameState.Play;
+        }
+        else if(state == GameState.Play && Input.GetMouseButton(0) && kitaazuchan.IsGround())
         {
             buttonDownTime += Time.deltaTime;
         }
@@ -35,6 +47,15 @@ public class GameManager : MonoBehaviour
     public float GetForce()
     {
         return Mathf.Min(maxForce, buttonDownTime);
+    }
+
+    public void GameOver()
+    {
+        rope.isRotate = false;
+        centerText.SetText("GAME OVER");
+        audioSource.Play();
+
+        state = GameState.End;
     }
 }
 
