@@ -19,4 +19,9 @@ public class Kitaazuchan : MonoBehaviour {
     {
         rigid.AddForce(new Vector3(0.0f, force * buttonDownTime, 0.0f));
     }
+
+    public bool IsGround()
+    {
+        return Physics.Raycast(transform.position + new Vector3(0.0f, -0.95f, 0.0f), -Vector3.up, 0.1f);
+    }
 }

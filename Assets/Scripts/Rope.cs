@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
+    public Kitaazuchan kitaazuchan;
+    AudioSource audioSource;
+
     public bool isRotate = false;
     public float speed = 1.0f;
     // Use this for initialization
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         isRotate = true;
     }
 
@@ -23,6 +28,8 @@ public class Rope : MonoBehaviour
 
             if(transform.rotation.x * oldRotationX < 0)
             {
+                audioSource.Play();
+
                 CheckCollision();
             }
         }
@@ -30,6 +37,9 @@ public class Rope : MonoBehaviour
 
     void CheckCollision()
     {
-        Debug.Log("Check");
+        if(kitaazuchan.IsGround())
+        {
+            Debug.Log("Fault");
+        }
     }
 }

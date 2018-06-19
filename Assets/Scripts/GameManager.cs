@@ -19,13 +19,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(state == GameState.Play && Input.GetMouseButton(0))
+        if(state == GameState.Play && Input.GetMouseButton(0) && kitaazuchan.IsGround())
         {
             buttonDownTime += Time.deltaTime;
         }
-        else if(Input.GetMouseButtonUp(0))
+        else if(state == GameState.Play && Input.GetMouseButtonUp(0) && kitaazuchan.IsGround())
         {
-            kitaazuchan.Jump(buttonDownTime);
+            kitaazuchan.Jump(Mathf.Min(1.0f, buttonDownTime));
             buttonDownTime = 0.0f;
         }
     }
