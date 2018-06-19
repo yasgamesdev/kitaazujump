@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -61,19 +63,6 @@ public class AzureManager : MonoBehaviour
                 buttonsRoot.SetActive(true);
                 leaderboardButton.interactable = true;
             }
-            //await tbl.InsertAsync(new TodoItem { Text = "New item" });
-
-            //WriteLine("Getting unfinished items");
-            //List<TodoItem> list = await tbl.Where(i => i.Complete == false).ToListAsync();
-            //foreach (TodoItem item in list)
-            //    WriteLine($"{item.Id} - {item.Text} - {item.Complete}");
-
-            //WriteLine("Updating first item");
-            //list[0].Complete = true;
-            //await tbl.UpdateAsync(list[0]);
-
-            //WriteLine("Deleting first item");
-            //await tbl.DeleteAsync(list[0]);
         }
         catch (Exception e)
         {
@@ -118,7 +107,7 @@ public class AzureManager : MonoBehaviour
         leaderboard.SetActive(true);
 
         string text = "";
-        for(int i=0; i<list.Count; i++)
+        for(int i=0; i<Mathf.Min(list.Count, maxScoreCount); i++)
         {
             text += "Rank" + string.Format("{0:D2}", i+1) + " " + string.Format("{0:D4}", list[i].Score) + " " + list[i].Name + "\n";
         }

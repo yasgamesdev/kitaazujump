@@ -16,6 +16,8 @@ public class Rope : MonoBehaviour
     public float speed = 1.0f;
     public int score = 0;
 
+    public const int oneupScore = 50;
+
     // Use this for initialization
     void Start()
     {
@@ -51,6 +53,10 @@ public class Rope : MonoBehaviour
         {
             score++;
             scoreText.text = string.Format("{0:D4}", score);
+            if(score >= oneupScore)
+            {
+                scoreText.color = Color.green;
+            }
 
             audioSource.Play();
         }

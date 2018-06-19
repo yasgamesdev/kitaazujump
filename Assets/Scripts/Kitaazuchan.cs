@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Kitaazuchan : MonoBehaviour {
     Rigidbody rigid;
-    AudioSource audioSource;
+    public Rope rope;
+    public AudioSource jumpAudioSource, oneupAudioSource;
     public float force;
+
+    public Transform oneUpPos;
+    public GameObject oneUpPrefab;
 	// Use this for initialization
 	void Start () {
         rigid = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -20,7 +23,15 @@ public class Kitaazuchan : MonoBehaviour {
     public void Jump(float buttonDownTime)
     {
         rigid.AddForce(new Vector3(0.0f, force * buttonDownTime, 0.0f));
-        audioSource.Play();
+        if(rope.score < Rope.oneupScore)
+        {
+            jumpAudioSource.Play();
+        }
+        else
+        {
+            oneupAudioSource.Play();
+            Instantiate(oneUpPrefab, oneUpPos.position, oneUpPos.rotation);
+        }
     }
 
     public bool IsGround()
