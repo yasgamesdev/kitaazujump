@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +11,7 @@ public class GameManager : MonoBehaviour
     public Kitaazuchan kitaazuchan;
     public Rope rope;
     public CenterText centerText;
+    public AzureManager azureManager;
 
     AudioSource audioSource;
 
@@ -49,13 +52,15 @@ public class GameManager : MonoBehaviour
         return Mathf.Min(maxForce, buttonDownTime);
     }
 
-    public void GameOver()
+    public async Task GameOver()
     {
         rope.isRotate = false;
         centerText.SetText("GAME OVER");
         audioSource.Play();
 
         state = GameState.End;
+
+        await azureManager.SetHighScore();
     }
 }
 

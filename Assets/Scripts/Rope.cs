@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +25,7 @@ public class Rope : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    async Task Update()
     {
         if(isRotate)
         {
@@ -34,17 +35,17 @@ public class Rope : MonoBehaviour
 
             if(transform.rotation.x * oldRotationX < 0)
             {
-                CheckCollision();
+                await CheckCollision();
             }
         }
-        speed += 0.0001f;
+        speed += 0.0002f;
     }
 
-    void CheckCollision()
+    async Task CheckCollision()
     {
         if(kitaazuchan.IsGround())
         {
-            manager.GameOver();
+            await manager.GameOver();
         }
         else
         {
