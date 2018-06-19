@@ -33,6 +33,7 @@ public class Rope : MonoBehaviour
                 CheckCollision();
             }
         }
+        speed += 0.0001f;
     }
 
     void CheckCollision()
