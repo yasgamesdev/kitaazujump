@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public Rope rope;
 
     float buttonDownTime = 0.0f;
+
+    public const float maxForce = 1.0f;
     // Use this for initialization
     void Start()
     {
@@ -25,9 +27,14 @@ public class GameManager : MonoBehaviour
         }
         else if(state == GameState.Play && Input.GetMouseButtonUp(0) && kitaazuchan.IsGround())
         {
-            kitaazuchan.Jump(Mathf.Min(1.0f, buttonDownTime));
+            kitaazuchan.Jump(GetForce());
             buttonDownTime = 0.0f;
         }
+    }
+
+    public float GetForce()
+    {
+        return Mathf.Min(maxForce, buttonDownTime);
     }
 }
 
